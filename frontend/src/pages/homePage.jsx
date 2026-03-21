@@ -35,11 +35,11 @@ function HomePage() {
           {"<DevFolio />"}
         </span>
 
-        <Link to="/create">
+        <Link to="/signin">
           <button
-            className="font-display sm:text-lg border border-[hsl(var(--primary))]/30 text-[hsl(var(--primary))] hover:bg-[hsl(var(--primary))]/10 bg-black py-1 px-2 rounded-md cursor-pointer"
+            className="bg-gradient-primary text-[hsl(var(--primary-foreground))] font-display font-semibold shadow-glow animate-pulse-glow py-1 px-2 md:py-2 md:px-4 rounded-sm cursor-pointer text-sm md:text-base"
           >
-            Create Portfolio
+           Sign In
           </button>
         </Link>
       </nav>
@@ -82,7 +82,7 @@ function HomePage() {
             </button>
           </Link>
 
-          <Link to="/portfolio/johndoe">
+          <Link to="/sample">
             <button
               className="border border-[hsl(var(--border))] text-[hsl(var(--foreground))] bg-black hover:bg-[hsl(var(--secondary))] font-display p-3 rounded-sm cursor-pointer"
             >

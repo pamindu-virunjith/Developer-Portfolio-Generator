@@ -7,6 +7,9 @@ import CreatePortfolio from "./pages/createPortfolio";
 import NotFound from "./pages/notFound";
 import PublicPortfolio from "./pages/publicPortfolio";
 import PreviewPortfolio from "./pages/previewPortfolio";
+import SignIn from "./pages/signIn";
+import SignUp from "./pages/signUp";
+import SampleProtfolio from "./pages/sampleProtfolio";
 function App() {
   return (
     <BrowserRouter>
@@ -15,8 +18,11 @@ function App() {
 
         <Routes path="/*">
           <Route path="/" element={<HomePage/>} />
+          <Route path="/signin" element={<SignIn/>} />
+          <Route path="/signup" element={<SignUp/>} />
           <Route path="/create" element={<CreatePortfolio/>} />
           <Route path="/preview" element={<PreviewPortfolio/>} />
+          <Route path="/sample" element={<SampleProtfolio/>} />
           <Route path="/portfolio/:username" element={<PublicPortfolio/>} />
           <Route path="/editPage/:username" element={<EditPortfolio/>}/>
           <Route path="/*" element={<NotFound/>} />

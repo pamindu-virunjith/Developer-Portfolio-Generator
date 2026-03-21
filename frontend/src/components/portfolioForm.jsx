@@ -163,7 +163,7 @@ const PortfolioForm = ({
                     .replace(/[^a-z0-9-_]/g, ""),
                 })
               }
-              className="w-full border border-[hsl(var(--muted-foreground))]/50 p-2 rounded"
+              className="w-full border border-[hsl(var(--muted-foreground))]/50 p-2 rounded placeholder:text-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[hsl(var(--primary))]"
               placeholder="johndoe"
             />
           </div>
@@ -174,7 +174,7 @@ const PortfolioForm = ({
               type="text"
               value={data.fullName}
               onChange={(e) => update({ fullName: e.target.value })}
-              className="w-full border border-[hsl(var(--muted-foreground))]/50 p-2 rounded"
+              className="w-full border border-[hsl(var(--muted-foreground))]/50 p-2 rounded placeholder:text-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[hsl(var(--primary))]"
               placeholder="John Doe"
             />
           </div>
@@ -185,7 +185,7 @@ const PortfolioForm = ({
               type="text"
               value={data.title}
               onChange={(e) => update({ title: e.target.value })}
-              className="w-full border  border-[hsl(var(--muted-foreground))]/50 p-2 rounded"
+              className="w-full border  border-[hsl(var(--muted-foreground))]/50 p-2 rounded placeholder:text-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[hsl(var(--primary))]"
               placeholder="Full Stack Developer"
             />
           </div>
@@ -195,7 +195,7 @@ const PortfolioForm = ({
             <textarea
               value={data.bio}
               onChange={(e) => update({ bio: e.target.value })}
-              className="w-full border  border-[hsl(var(--muted-foreground))]/50 p-2 rounded"
+              className="w-full border  border-[hsl(var(--muted-foreground))]/50 p-2 rounded placeholder:text-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[hsl(var(--primary))]"
               placeholder="Bio"
             />
           </div>
@@ -206,7 +206,7 @@ const PortfolioForm = ({
               type="text"
               value={data.profileImage}
               onChange={(e) => update({ profileImage: e.target.value })}
-              className="w-full border  border-[hsl(var(--muted-foreground))]/50 p-2 rounded"
+              className="w-full border  border-[hsl(var(--muted-foreground))]/50 p-2 rounded placeholder:text-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[hsl(var(--primary))]"
               placeholder="https://..."
             />
           </div>
@@ -222,7 +222,7 @@ const PortfolioForm = ({
               type="email"
               value={data.contact.email}
               onChange={(e) => updateContact({ email: e.target.value })}
-              className="w-full border  border-[hsl(var(--muted-foreground))]/50 p-2 rounded"
+              className="w-full border  border-[hsl(var(--muted-foreground))]/50 p-2 rounded placeholder:text-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[hsl(var(--primary))]"
               placeholder="john@example.com"
             />
           </div>
@@ -232,7 +232,7 @@ const PortfolioForm = ({
               type="email"
               value={data.contact.linkedin}
               onChange={(e) => updateContact({ linkedin: e.target.value })}
-              className="w-full border border-[hsl(var(--muted-foreground))]/50 p-2 rounded"
+              className="w-full border border-[hsl(var(--muted-foreground))]/50 p-2 rounded placeholder:text-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[hsl(var(--primary))]"
               placeholder="https://linkedin.com/in/..."
             />
           </div>
@@ -242,7 +242,7 @@ const PortfolioForm = ({
               type="email"
               value={data.contact.github}
               onChange={(e) => updateContact({ github: e.target.value })}
-              className="w-full border border-[hsl(var(--muted-foreground))]/50 p-2 rounded"
+              className="w-full border border-[hsl(var(--muted-foreground))]/50 p-2 rounded placeholder:text-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[hsl(var(--primary))]"
               placeholder="https://github.com/..."
             />
           </div>
@@ -252,7 +252,7 @@ const PortfolioForm = ({
               type="email"
               value={data.contact.website}
               onChange={(e) => updateContact({ website: e.target.value })}
-              className="w-full border border-[hsl(var(--muted-foreground))]/50 p-2 rounded"
+              className="w-full border border-[hsl(var(--muted-foreground))]/50 p-2 rounded placeholder:text-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[hsl(var(--primary))]"
               placeholder="https://yoursite.com"
             />
           </div>
@@ -272,7 +272,7 @@ const PortfolioForm = ({
                   addSkill();
                 }
               }}
-              className="border border-[hsl(var(--muted-foreground))]/50 p-2 flex-1 rounded"
+              className="border border-[hsl(var(--muted-foreground))]/50 p-2 flex-1 rounded placeholder:text-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[hsl(var(--primary))]"
               placeholder="Type a Skill and press Enter"
             />
             <button
@@ -334,7 +334,7 @@ const PortfolioForm = ({
                 value={p.name}
                 onChange={(e) => updateProject(i, { name: e.target.value })}
                 placeholder="Project name"
-                className="w-full border border-[hsl(var(--muted-foreground))]/50 p-2 rounded"
+                className="w-full border border-[hsl(var(--muted-foreground))]/50 p-2 rounded placeholder:text-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[hsl(var(--primary))]"
               />
 
               <textarea
@@ -344,7 +344,7 @@ const PortfolioForm = ({
                 }
                 placeholder="Description"
                 rows={2}
-                className="w-full border border-[hsl(var(--muted-foreground))]/50 p-2 rounded"
+                className="w-full border border-[hsl(var(--muted-foreground))]/50 p-2 rounded placeholder:text-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[hsl(var(--primary))]"
               />
 
               <input
@@ -359,7 +359,7 @@ const PortfolioForm = ({
                   })
                 }
                 placeholder="Tech stack (comma-separated)"
-                className="w-full border border-[hsl(var(--muted-foreground))]/50 p-2 rounded"
+                className="w-full border border-[hsl(var(--muted-foreground))]/50 p-2 rounded placeholder:text-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[hsl(var(--primary))]"
               />
 
               <div className="grid grid-cols-2 gap-3">
@@ -370,7 +370,7 @@ const PortfolioForm = ({
                     updateProject(i, { githubLink: e.target.value })
                   }
                   placeholder="GitHub link"
-                  className="w-full border border-[hsl(var(--muted-foreground))]/50 p-2 rounded"
+                  className="w-full border border-[hsl(var(--muted-foreground))]/50 p-2 rounded placeholder:text-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[hsl(var(--primary))]"
                 />
 
                 <input
@@ -380,7 +380,7 @@ const PortfolioForm = ({
                     updateProject(i, { liveDemo: e.target.value })
                   }
                   placeholder="Live demo link"
-                  className="w-full border border-[hsl(var(--muted-foreground))]/50 p-2 rounded"
+                  className="w-full border border-[hsl(var(--muted-foreground))]/50 p-2 rounded placeholder:text-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[hsl(var(--primary))]"
                 />
               </div>
             </div>
@@ -426,7 +426,7 @@ const PortfolioForm = ({
                     updateExperience(i, { company: ev.target.value })
                   }
                   placeholder="Company"
-                  className="w-full border border-[hsl(var(--muted-foreground))]/50 p-2 rounded"
+                  className="w-full border border-[hsl(var(--muted-foreground))]/50 p-2 rounded placeholder:text-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[hsl(var(--primary))]"
                 />
 
                 <input
@@ -436,7 +436,7 @@ const PortfolioForm = ({
                     updateExperience(i, { role: ev.target.value })
                   }
                   placeholder="Role"
-                  className="w-full border border-[hsl(var(--muted-foreground))]/50  p-2 rounded"
+                  className="w-full border border-[hsl(var(--muted-foreground))]/50  p-2 rounded placeholder:text-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[hsl(var(--primary))]"
                 />
               </div>
 
@@ -447,7 +447,7 @@ const PortfolioForm = ({
                   updateExperience(i, { duration: ev.target.value })
                 }
                 placeholder="Duration (e.g. Jan 2022 - Present)"
-                className="w-full border border-[hsl(var(--muted-foreground))]/50 p-2 rounded"
+                className="w-full border border-[hsl(var(--muted-foreground))]/50 p-2 rounded placeholder:text-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[hsl(var(--primary))]"
               />
 
               <textarea
@@ -457,7 +457,7 @@ const PortfolioForm = ({
                 }
                 placeholder="Description"
                 rows={2}
-                className="w-full border border-[hsl(var(--muted-foreground))]/50 p-2 rounded"
+                className="w-full border border-[hsl(var(--muted-foreground))]/50 p-2 rounded placeholder:text-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[hsl(var(--primary))]"
               />
             </div>
           ))}
