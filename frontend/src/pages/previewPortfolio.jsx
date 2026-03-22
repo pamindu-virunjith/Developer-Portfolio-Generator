@@ -2,6 +2,7 @@ import { Mail, Globe, ExternalLink } from "lucide-react";
 import { GrGithub, GrLinkedinOption } from "react-icons/gr";
 // eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
+import { useLocation } from "react-router-dom";
 
 const fadeIn = (delay = 0) => ({
   initial: { opacity: 0, y: 16 },
@@ -9,71 +10,72 @@ const fadeIn = (delay = 0) => ({
   transition: { delay, duration: 0.4 },
 });
 
-const samplePortfolio = {
-  username: "pamindu",
-  fullName: "Pamindu Virunjith",
-  title: "Full Stack Developer",
-  bio: "Passionate developer focused on building modern web applications using the MERN stack. Interested in UI/UX and scalable systems.",
+// const samplePortfolio = {
+//   username: "pamindu",
+//   fullName: "Pamindu Virunjith",
+//   title: "Full Stack Developer",
+//   bio: "Passionate developer focused on building modern web applications using the MERN stack. Interested in UI/UX and scalable systems.",
 
-  profileImage: "https://i.pravatar.cc/300",
+//   profileImage: "https://i.pravatar.cc/300",
 
-  contact: {
-    email: "pamindu@example.com",
-    linkedin: "https://linkedin.com/in/pamindu",
-    github: "https://github.com/pamindu",
-    website: "https://pamindu.dev",
-  },
+//   contact: {
+//     email: "pamindu@example.com",
+//     linkedin: "https://linkedin.com/in/pamindu",
+//     github: "https://github.com/pamindu",
+//     website: "https://pamindu.dev",
+//   },
 
-  skills: [
-    "HTML",
-    "CSS",
-    "JavaScript",
-    "React",
-    "Node.js",
-    "MongoDB",
-    "Express",
-    "Tailwind CSS",
-  ],
+//   skills: [
+//     "HTML",
+//     "CSS",
+//     "JavaScript",
+//     "React",
+//     "Node.js",
+//     "MongoDB",
+//     "Express",
+//     "Tailwind CSS",
+//   ],
 
-  projects: [
-    {
-      name: "Portfolio Generator",
-      description:
-        "A web app that allows developers to create and share their portfolio with a unique URL.",
-      techStack: ["React", "Node.js", "MongoDB"],
-      githubLink: "https://github.com/pamindu/portfolio-generator",
-      liveDemo: "https://portfolio-demo.vercel.app",
-    },
-    {
-      name: "E-commerce Website",
-      description:
-        "Full-stack e-commerce platform with authentication, cart, and payment integration.",
-      techStack: ["React", "Express", "MongoDB"],
-      githubLink: "https://github.com/pamindu/ecommerce-app",
-      liveDemo: "https://ecommerce-demo.vercel.app",
-    },
-  ],
+//   projects: [
+//     {
+//       name: "Portfolio Generator",
+//       description:
+//         "A web app that allows developers to create and share their portfolio with a unique URL.",
+//       techStack: ["React", "Node.js", "MongoDB"],
+//       githubLink: "https://github.com/pamindu/portfolio-generator",
+//       liveDemo: "https://portfolio-demo.vercel.app",
+//     },
+//     {
+//       name: "E-commerce Website",
+//       description:
+//         "Full-stack e-commerce platform with authentication, cart, and payment integration.",
+//       techStack: ["React", "Express", "MongoDB"],
+//       githubLink: "https://github.com/pamindu/ecommerce-app",
+//       liveDemo: "https://ecommerce-demo.vercel.app",
+//     },
+//   ],
 
-  experience: [
-    {
-      company: "Sri Lanka Telecom",
-      role: "Intern - Software Development",
-      duration: "Jan 2026 - Present",
-      description:
-        "Worked on scalable mobile applications using AWS technologies and cloud-based architecture.",
-    },
-    {
-      company: "Freelance",
-      role: "Web Developer",
-      duration: "2024 - Present",
-      description:
-        "Designed and developed responsive websites for clients using React and Tailwind CSS.",
-    },
-  ],
-};
+//   experience: [
+//     {
+//       company: "Sri Lanka Telecom",
+//       role: "Intern - Software Development",
+//       duration: "Jan 2026 - Present",
+//       description:
+//         "Worked on scalable mobile applications using AWS technologies and cloud-based architecture.",
+//     },
+//     {
+//       company: "Freelance",
+//       role: "Web Developer",
+//       duration: "2024 - Present",
+//       description:
+//         "Designed and developed responsive websites for clients using React and Tailwind CSS.",
+//     },
+//   ],
+// };
 
 function PreviewPortfolio() {
-  const p = samplePortfolio;
+  const location = useLocation();
+  const p = location.state;
 
   return (
     <div className="max-w-4xl mx-auto space-y-16 py-8 px-5 xl:px-0">

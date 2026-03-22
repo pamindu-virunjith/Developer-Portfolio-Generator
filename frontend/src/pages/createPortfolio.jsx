@@ -2,12 +2,18 @@ import { useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 import PortfolioForm from "../components/portfolioForm";
+import toast from "react-hot-toast";
 
 function CreatePortfolio() {
   const navigate = useNavigate();
 
-  const handleSubmit = () => {
-    navigate("/preview");
+  const handleSubmit = (data) => {
+    if(data.username === '' || data.fullName === ''){
+      toast.error("Please fill required the fields to proceed");
+      navigate("/create");
+      return
+    }
+    navigate("/preview", { state: data });
   };
 
   return (

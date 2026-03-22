@@ -26,15 +26,19 @@ function SignUp() {
         username,
         password,
       })
-      .then((response) => {
-        console.log(response);
+      .then(() => {
+        // console.log(response);
         setLoading(false);
         navigate("/signin");
         toast.success("User created successfully");
       })
       .catch((error) => {
         console.error(error);
+        console.log();
         setLoading(false);
+        toast.error(error.response.data.message +". Enter unique username");
+        setPassword("");
+        setConfirmPassword("")
       });
   };
   return (

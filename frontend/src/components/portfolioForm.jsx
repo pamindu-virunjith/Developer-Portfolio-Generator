@@ -14,23 +14,8 @@ const emptyPortfolio = {
     website: "",
   },
   skills: [],
-  projects: [
-    {
-      name: "",
-      description: "",
-      techStack: [],
-      githubLink: "",
-      liveDemo: "",
-    },
-  ],
-  experience: [
-    {
-      company: "",
-      role: "",
-      duration: "",
-      description: "",
-    },
-  ],
+  projects: [],
+  experience: [],
 };
 
 const steps = ["Personal Info", "Contact", "Skills", "Projects", "Experience"];
@@ -42,6 +27,7 @@ const PortfolioForm = ({
 }) => {
   const [data, setData] = useState(initialData || { ...emptyPortfolio });
   const [step, setStep] = useState(0);
+  const [techInputs, setTechInputs] = useState({});
   const [skillInput, setSkillInput] = useState("");
 
   const update = (partial) => setData((d) => ({ ...d, ...partial }));
@@ -128,6 +114,14 @@ const PortfolioForm = ({
     <form
       onSubmit={(e) => {
         e.preventDefault();
+
+        // console.log("SUBMIT TRIGGERED, STEP:", step);
+
+        if (step !== steps.length - 1) {
+          console.log("Blocked submit at step:", step);
+          return;
+        }
+        // console.log("Final submit");
         onSubmit(data);
       }}
       className="max-w-2xl mx-auto"
@@ -140,7 +134,11 @@ const PortfolioForm = ({
             type="button"
             onClick={() => setStep(i)}
             className={`font-display text-sm px-1 md:px-3 py-1.5 rounded-sm md:rounded-full whitespace-nowrap transition-colors ${
-              i === step ? "bg-[hsl(var(--primary))] text-[hsl(var(--primary-foreground))]" : i < step ? "bg-[hsl(var(--secondary))] text-[hsl(var(--primary))]" : "bg-[hsl(var(--secondary))] text-[hsl(var(--muted-foreground))]"
+              i === step
+                ? "bg-[hsl(var(--primary))] text-[hsl(var(--primary-foreground))]"
+                : i < step
+                  ? "bg-[hsl(var(--secondary))] text-[hsl(var(--primary))]"
+                  : "bg-[hsl(var(--secondary))] text-[hsl(var(--muted-foreground))]"
             }`}
           >
             {s}
@@ -152,7 +150,9 @@ const PortfolioForm = ({
       {step === 0 && (
         <div className="space-y-4">
           <div>
-            <label className="block mb-1">Username * <small>(Unique)</small></label>
+            <label className="block mb-1">
+              Username * <small>(Unique)</small>
+            </label>
             <input
               type="text"
               value={data.username}
@@ -286,13 +286,10 @@ const PortfolioForm = ({
 
           <div className="flex flex-wrap gap-2">
             {data.skills.length === 0 && (
-              <div className=" flex items-center gap-1">
-                No skills yet.
-              </div>
+              <div className=" flex items-center gap-1">No skills yet.</div>
             )}
-            
-            {
-            data.skills.map((s) => (
+
+            {data.skills.map((s) => (
               <span
                 key={s}
                 className="bg-[hsl(var(--secondary))] text-[hsl(var(--muted-forground))] px-3 py-1 rounded flex items-center gap-1"
@@ -349,15 +346,18 @@ const PortfolioForm = ({
 
               <input
                 type="text"
-                value={p.techStack.join(", ")}
+                value={techInputs[i] ?? p.techStack.join(", ")}
                 onChange={(e) =>
+                  setTechInputs({ ...techInputs, [i]: e.target.value })
+                }
+                onBlur={() => {
                   updateProject(i, {
-                    techStack: e.target.value
+                    techStack: (techInputs[i] ?? "")
                       .split(",")
                       .map((s) => s.trim())
                       .filter(Boolean),
-                  })
-                }
+                  });
+                }}
                 placeholder="Tech stack (comma-separated)"
                 className="w-full border border-[hsl(var(--muted-foreground))]/50 p-2 rounded placeholder:text-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[hsl(var(--primary))]"
               />
@@ -476,7 +476,7 @@ const PortfolioForm = ({
       <div className="flex justify-between mt-6">
         <button
           type="button"
-          onClick={() => setStep(step - 1)}
+          onClick={() => setStep((s) => s - 1)}
           disabled={step === 0}
           className="px-4 py-2 border rounded flex items-center justify-center gap-1"
         >
@@ -486,17 +486,19 @@ const PortfolioForm = ({
         {step < steps.length - 1 ? (
           <button
             type="button"
-            onClick={() => setStep(step + 1)}
+            onClick={(e) => {
+              e.preventDefault();
+              setStep((s) => s + 1);
+            }}
             disabled={!canNext()}
             className="px-4 py-2 bg-gradient-primary text-[hsl(var(--primary-foreground))] rounded flex items-center justify-center gap-1 "
-          
           >
             Next <ChevronRight size={16} />
           </button>
         ) : (
           <button
             type="submit"
-            className="px-4 py-2 bg-gradient-primary text-[hsl(var(--primary-foreground))] rounded-sm"
+            className="px-4 py-2 bg-gradient-primary text-[hsl(var(--primary-foreground))] rounded-sm cursor-pointer"
           >
             {submitLabel}
           </button>
