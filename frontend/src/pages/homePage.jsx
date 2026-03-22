@@ -1,7 +1,10 @@
 import { Link } from "react-router-dom";
-import { Code2, Rocket, Share2, Pencil } from "lucide-react";
+import { Code2, Pencil, Rocket, Share2, Trash2 } from "lucide-react";
 // eslint-disable-next-line no-unused-vars
-import { motion} from "motion/react"
+import { motion } from "motion/react";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 const features = [
   {
@@ -27,6 +30,51 @@ const features = [
 ];
 
 function HomePage() {
+  const user = localStorage.getItem("user");
+  const token = localStorage.getItem("token");
+  const [isPortfolioFound, setIsPortfolioFound] = useState(false);
+
+  async function deletePortfolio() {
+    try {
+      const res = await axios.delete(
+        `${import.meta.env.VITE_BACKEND_URL}/api/portfolio/${user}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+
+      toast.success(res.data.message || "Deleted successfully");
+      setIsPortfolioFound(false);
+
+    } catch (err) {
+      console.error(err);
+      toast.error(err.response?.data?.message || "Delete failed");
+    }
+  }
+
+  useEffect(() => {
+    if (!user) return;
+
+    const token = localStorage.getItem("token");
+
+    axios
+      .get(`${import.meta.env.VITE_BACKEND_URL}/api/portfolio/${user}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then(() => {
+        setIsPortfolioFound(true);
+      })
+      .catch((err) => {
+        if (err.response?.status === 404) {
+          setIsPortfolioFound(false);
+        } else {
+          console.error(err);
+        }
+      });
+  }, [user]);
+
   return (
     <div className="w-full h-full bg-gradient-hero text-white">
       {/* Nav */}
@@ -36,10 +84,8 @@ function HomePage() {
         </span>
 
         <Link to="/signin">
-          <button
-            className="bg-gradient-primary text-[hsl(var(--primary-foreground))] font-display font-semibold shadow-glow animate-pulse-glow py-1 px-2 md:py-2 md:px-4 rounded-sm cursor-pointer text-sm md:text-base"
-          >
-           Sign In
+          <button className="bg-gradient-primary text-[hsl(var(--primary-foreground))] font-display font-semibold shadow-glow animate-pulse-glow py-1 px-2 md:py-2 md:px-4 rounded-sm cursor-pointer text-sm md:text-base">
+            Sign In
           </button>
         </Link>
       </nav>
@@ -63,8 +109,8 @@ function HomePage() {
           </h1>
 
           <p className="mt-6 max-w-xl mx-auto text-[hsl(var(--muted-foreground))] text-lg leading-relaxed">
-            Fill out a simple form, preview your portfolio, and publish it with a
-            unique shareable URL. No design skills needed.
+            Fill out a simple form, preview your portfolio, and publish it with
+            a unique shareable URL. No design skills needed.
           </p>
         </motion.div>
 
@@ -74,21 +120,39 @@ function HomePage() {
           transition={{ delay: 0.3, duration: 0.5 }}
           className="flex gap-4 mt-4"
         >
-          <Link to="/create">
-            <button
-              className="bg-gradient-primary text-[hsl(var(--primary-foreground))] font-display font-semibold shadow-glow animate-pulse-glow p-3 rounded-sm cursor-pointer"
-            >
-              Create Your Portfolio
-            </button>
-          </Link>
-
-          <Link to="/sample">
-            <button
-              className="border border-[hsl(var(--border))] text-[hsl(var(--foreground))] bg-black hover:bg-[hsl(var(--secondary))] font-display p-3 rounded-sm cursor-pointer"
-            >
-              View Sample
-            </button>
-          </Link>
+          {isPortfolioFound ? (
+            <>
+              <Link to={`/portfolio/${user}`}>
+                <button className="bg-gradient-primary text-[hsl(var(--primary-foreground))] font-display font-semibold shadow-glow animate-pulse-glow p-3 rounded-sm cursor-pointer">
+                  View Your Portfolio
+                </button>
+              </Link>
+              <Link to={`/edit/${user}`}>
+                <button className="border border-[hsl(var(--primary))]/50 text-[hsl(var(--primary))] font-display p-3 rounded-sm cursor-pointer">
+                  <Pencil className="w-5 h-5" />
+                </button>
+              </Link>
+              <button
+                onClick={deletePortfolio}
+                className="text-red-600 border border-[hsl(var(--primary))]/50 p-3 rounded-sm cursor-pointer"
+              >
+                <Trash2 className="w-5 h-5" />
+              </button>
+            </>
+          ) : (
+            <>
+              <Link to="/create">
+                <button className="bg-gradient-primary text-[hsl(var(--primary-foreground))] font-display font-semibold shadow-glow animate-pulse-glow p-3 rounded-sm cursor-pointer">
+                  Create Your Portfolio
+                </button>
+              </Link>
+              <Link to="/sample">
+                <button className="border border-[hsl(var(--border))] text-[hsl(var(--foreground))] bg-black hover:bg-[hsl(var(--secondary))] font-display p-3 rounded-sm cursor-pointer">
+                  View Sample
+                </button>
+              </Link>
+            </>
+          )}
         </motion.div>
       </section>
 
@@ -122,8 +186,6 @@ function HomePage() {
             );
           })}
         </div>
-
-        
       </section>
 
       {/* Footer */}
@@ -136,4 +198,4 @@ function HomePage() {
   );
 }
 
-export default HomePage
+export default HomePage;

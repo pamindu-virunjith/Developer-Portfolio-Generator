@@ -24,7 +24,7 @@ function App() {
           <Route path="/preview" element={<PreviewPortfolio/>} />
           <Route path="/sample" element={<SampleProtfolio/>} />
           <Route path="/portfolio/:username" element={<PublicPortfolio/>} />
-          <Route path="/editPage/:username" element={<EditPortfolio/>}/>
+          <Route path="/edit/:username" element={<EditPortfolio/>}/>
           <Route path="/*" element={<NotFound/>} />
         </Routes>
       </>

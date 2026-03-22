@@ -21,8 +21,19 @@ function SignIn() {
         password,
       })
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         setLoading(false);
+        const token = response.data.token;
+        
+        if(token){
+          localStorage.setItem("token", token);
+        }
+
+      const user = response.data.user;
+      if (user) {
+        localStorage.setItem("user", user);
+      }
+
         navigate("/");
         toast.success("User login successfully");
       })

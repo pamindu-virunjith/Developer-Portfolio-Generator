@@ -55,6 +55,7 @@ export async function getPortfolio(req, res) {
     });
   }
 }
+
 export async function updatePortfolio(req, res) {
   try {
     const oldUsername = req.params.username;
@@ -85,7 +86,7 @@ export async function deletePortfolio(req, res) {
       message: "Portfolio deleted successfully",
     });
   } catch (e) {
-    req.status(400).json({
+    res.status(400).json({
       message: "Portfolio deletion failed",
       error: e,
     });

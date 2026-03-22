@@ -8,7 +8,7 @@ function CreatePortfolio() {
   const navigate = useNavigate();
 
   const handleSubmit = (data) => {
-    if(data.username === '' || data.fullName === ''){
+    if(data.title === '' || data.fullName === ''){
       toast.error("Please fill required the fields to proceed");
       navigate("/create");
       return

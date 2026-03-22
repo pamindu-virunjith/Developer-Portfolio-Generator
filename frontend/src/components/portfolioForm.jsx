@@ -49,7 +49,7 @@ const PortfolioForm = ({
     update({ skills: data.skills.filter((sk) => sk !== s) });
 
   const canNext = () => {
-    if (step === 0) return data.username && data.fullName;
+    if (step === 0) return data.title && data.fullName;
     return true;
   };
 
@@ -149,9 +149,9 @@ const PortfolioForm = ({
       {/* Step 1 (Persoal Info) */}
       {step === 0 && (
         <div className="space-y-4">
-          <div>
+          {/* <div>
             <label className="block mb-1">
-              Username * <small>(Unique)</small>
+              Username *
             </label>
             <input
               type="text"
@@ -166,7 +166,7 @@ const PortfolioForm = ({
               className="w-full border border-[hsl(var(--muted-foreground))]/50 p-2 rounded placeholder:text-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[hsl(var(--primary))]"
               placeholder="johndoe"
             />
-          </div>
+          </div> */}
 
           <div>
             <label className="block mb-1">Full Name *</label>

@@ -1,8 +1,11 @@
-import { Mail, Globe, ExternalLink } from "lucide-react";
+import { Mail, Globe, ExternalLink, ArrowLeft, Rocket } from "lucide-react";
 import { GrGithub, GrLinkedinOption } from "react-icons/gr";
 // eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 const fadeIn = (delay = 0) => ({
   initial: { opacity: 0, y: 16 },
@@ -75,10 +78,65 @@ const fadeIn = (delay = 0) => ({
 
 function PreviewPortfolio() {
   const location = useLocation();
+  const navigate = useNavigate();
+  const [publishing, setPublishing] = useState(false);
   const p = location.state;
+
+  const publish = async () => {
+    // console.log(p);
+    if (!p) return;
+
+    try {
+      setPublishing(true);
+      const token = localStorage.getItem("token");
+      const username = localStorage.getItem("user");
+
+      const response = await axios.post(
+        import.meta.env.VITE_BACKEND_URL + "/api/portfolio/",
+        p,
+        { headers: { Authorization: `Bearer ${token}` } },
+      );
+
+      console.log("Portfolio published:");
+      // console.log("Portfolio published:", response);
+      toast.success(response.data.message);
+      // console.log(response.data);
+      navigate(`/portfolio/${username}`);
+    } catch (err) {
+      console.error(err);
+
+      const message = err.response?.data?.message || "Something went wrong";
+
+      toast.error(message);
+    } finally {
+      setPublishing(false);
+    }
+  };
 
   return (
     <div className="max-w-4xl mx-auto space-y-16 py-8 px-5 xl:px-0">
+      {/* Navigation */}
+      <nav className="flex items-center justify-between">
+        <div className="flex items-center gap-4">
+          <button
+            onClick={() => navigate("/create")}
+            className="text-[hsl(var(--primary))] hover:text-[hsl(var(--foreground))] cursor-pointer animate-pulse"
+          >
+            <ArrowLeft className="w-5 h-5" />
+          </button>
+          <span className="font-display text-lg text-[hsl(var(--primary))] font-bold">
+            Preview
+          </span>
+        </div>
+        <button
+          onClick={publish}
+          disabled={publishing}
+          className="flex items-center py-0.5 md:py-2 px-1 md:px-2 rounded-sm bg-gradient-primary text-[hsl(var(--primary-foreground))] font-display shadow-glow cursor-pointer"
+        >
+          <Rocket className="w-4 h-4 mr-2" />{" "}
+          {publishing ? "Publishing..." : "Publish Portfolio"}
+        </button>
+      </nav>
       {/* Header */}
       <motion.section
         {...fadeIn()}
@@ -93,11 +151,19 @@ function PreviewPortfolio() {
         )}
 
         <div className="text-center md:text-left">
-          <h1 className="text-3xl md:text-4xl font-bold text-[hsl(var(--foreground))]">{p.fullName}</h1>
+          <h1 className="text-3xl md:text-4xl font-bold text-[hsl(var(--foreground))]">
+            {p.fullName}
+          </h1>
 
-          {p.title && <p className="text-lg text-[hsl(var(--primary))] mt-1">{p.title}</p>}
+          {p.title && (
+            <p className="text-lg text-[hsl(var(--primary))] mt-1">{p.title}</p>
+          )}
 
-          {p.bio && <p className="text-[hsl(var(--muted-foreground))] mt-3 max-w-lg">{p.bio}</p>}
+          {p.bio && (
+            <p className="text-[hsl(var(--muted-foreground))] mt-3 max-w-lg">
+              {p.bio}
+            </p>
+          )}
         </div>
       </motion.section>
 
@@ -117,7 +183,8 @@ function PreviewPortfolio() {
                 rel="noreferrer"
                 className="flex items-center gap-2 border px-4 py-2 rounded-lg text-xs md:text-sm bg-[hsl(var(--secondary))] text-[hsl(var(--secondary-foreground))] hover:border-[hsl(var(--primary))]/60 border-[hsl(var(--primary))]/30 transition-colors"
               >
-                <Mail size={16}  className="text-[hsl(var(--primary))]"/> {p.contact.email}
+                <Mail size={16} className="text-[hsl(var(--primary))]" />{" "}
+                {p.contact.email}
               </a>
             )}
 
@@ -128,7 +195,11 @@ function PreviewPortfolio() {
                 rel="noreferrer"
                 className="flex items-center gap-2 border px-4 py-2 rounded text-xs md:text-sm bg-[hsl(var(--secondary))] text-[hsl(var(--secondary-foreground))] hover:border-[hsl(var(--primary))]/60 border-[hsl(var(--primary))]/30 transition-colors"
               >
-                <GrLinkedinOption size={16} className="text-[hsl(var(--primary))]"/> LinkedIn
+                <GrLinkedinOption
+                  size={16}
+                  className="text-[hsl(var(--primary))]"
+                />{" "}
+                LinkedIn
               </a>
             )}
 
@@ -139,7 +210,8 @@ function PreviewPortfolio() {
                 rel="noreferrer"
                 className="flex items-center gap-2 border px-4 py-2 rounded text-xs md:text-sm bg-[hsl(var(--secondary))] text-[hsl(var(--secondary-foreground))] hover:border-[hsl(var(--primary))]/60 border-[hsl(var(--primary))]/30 transition-colors"
               >
-                <GrGithub size={16} className="text-[hsl(var(--primary))]"/> GitHub
+                <GrGithub size={16} className="text-[hsl(var(--primary))]" />{" "}
+                GitHub
               </a>
             )}
 
@@ -150,7 +222,8 @@ function PreviewPortfolio() {
                 rel="noreferrer"
                 className="flex items-center gap-2 border px-4 py-2 rounded text-xs md:text-sm bg-[hsl(var(--secondary))] text-[hsl(var(--secondary-foreground))] hover:border-[hsl(var(--primary))]/60 border-[hsl(var(--primary))]/30 transition-colors"
               >
-                <Globe size={16} className="text-[hsl(var(--primary))]"/> Website
+                <Globe size={16} className="text-[hsl(var(--primary))]" />{" "}
+                Website
               </a>
             )}
           </div>
@@ -182,10 +255,17 @@ function PreviewPortfolio() {
 
           <div className="grid md:grid-cols-2 gap-6">
             {p.projects.map((proj, i) => (
-              <div key={i} className="bg-[hsl(var(--card))] border border-[hsl(var(--muted-foreground))]/30 hover:border-[hsl(var(--primary))]/30 rounded-lg p-6 shadow transition-colors">
-                <h3 className="font-semibold text-lg text-[hsl(var(--foreground))]">{proj.name}</h3>
+              <div
+                key={i}
+                className="bg-[hsl(var(--card))] border border-[hsl(var(--muted-foreground))]/30 hover:border-[hsl(var(--primary))]/30 rounded-lg p-6 shadow transition-colors"
+              >
+                <h3 className="font-semibold text-lg text-[hsl(var(--foreground))]">
+                  {proj.name}
+                </h3>
 
-                <p className="text-[hsl(var(--muted-foreground))] text-sm mt-2 leading-relaxed">{proj.description}</p>
+                <p className="text-[hsl(var(--muted-foreground))] text-sm mt-2 leading-relaxed">
+                  {proj.description}
+                </p>
 
                 {proj.techStack?.length > 0 && (
                   <div className="flex flex-wrap gap-1 mt-3">
@@ -236,12 +316,17 @@ function PreviewPortfolio() {
 
           <div className="space-y-6 mb-10">
             {p.experience.map((exp, i) => (
-              <div key={i} className="border-l-2 pl-4 border-[hsl(var(--primary))]/40">
-                <h3 className="font-semibold text-hsl(var(--foreground))] text-sm md:text-lg">{exp.role}</h3>
+              <div
+                key={i}
+                className="border-l-2 pl-4 border-[hsl(var(--primary))]/40"
+              >
+                <h3 className="font-semibold text-hsl(var(--foreground))] text-sm md:text-lg">
+                  {exp.role}
+                </h3>
 
                 <p className="text-[hsl(var(--primary))] text-sm md:text-lg">
                   {exp.company + " "}
-                  <span className="text-gray-500"> •{" "} {exp.duration}</span>
+                  <span className="text-gray-500"> • {exp.duration}</span>
                 </p>
 
                 {exp.description && (
@@ -264,6 +349,5 @@ const SectionTitle = ({ children }) => (
     {children}
   </h2>
 );
-
 
 export default PreviewPortfolio;

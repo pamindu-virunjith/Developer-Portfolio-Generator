@@ -10,7 +10,6 @@ const fadeIn = (delay = 0) => ({
 });
 
 const samplePortfolio = {
-  username: "johndoe",
   fullName: "John Doe",
   title: "Full Stack Developer",
   bio: "Passionate developer focused on building modern web applications using the MERN stack. Interested in UI/UX and scalable systems.",
