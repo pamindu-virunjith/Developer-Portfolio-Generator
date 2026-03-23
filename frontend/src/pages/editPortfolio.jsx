@@ -45,7 +45,7 @@ function EditPortfolio() {
         >
           <ArrowLeft className="w-6 h-6" />
         </Link>
-        <span className="font-display text-3xl text-[hsl(var(--primary))] font-bold tracking-tight">
+        <span className="font-display text-lg md:text-3xl text-[hsl(var(--primary))] font-bold tracking-tight">
           {"<DevFolio />"}
         </span>
       </nav>

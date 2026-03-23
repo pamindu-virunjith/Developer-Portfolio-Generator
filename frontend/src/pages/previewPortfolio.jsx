@@ -91,6 +91,12 @@ function PreviewPortfolio() {
       const token = localStorage.getItem("token");
       const username = localStorage.getItem("user");
 
+      if(!token || !username){
+        toast.error("You need to login to publish your portfolio.");
+        navigate("/signin");
+        return
+      }
+
       const response = await axios.post(
         import.meta.env.VITE_BACKEND_URL + "/api/portfolio/",
         p,

@@ -34,26 +34,6 @@ function HomePage() {
   const token = localStorage.getItem("token");
   const [isPortfolioFound, setIsPortfolioFound] = useState(false);
 
-  async function deletePortfolio() {
-    try {
-      const res = await axios.delete(
-        `${import.meta.env.VITE_BACKEND_URL}/api/portfolio/${user}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
-      );
-
-      toast.success(res.data.message || "Deleted successfully");
-      setIsPortfolioFound(false);
-
-    } catch (err) {
-      console.error(err);
-      toast.error(err.response?.data?.message || "Delete failed");
-    }
-  }
-
   useEffect(() => {
     if (!user) return;
 
@@ -75,6 +55,33 @@ function HomePage() {
       });
   }, [user]);
 
+  async function deletePortfolio() {
+    try {
+      const res = await axios.delete(
+        `${import.meta.env.VITE_BACKEND_URL}/api/portfolio/${user}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+
+      toast.success(res.data.message || "Deleted successfully");
+      setIsPortfolioFound(false);
+
+    } catch (err) {
+      console.error(err);
+      toast.error(err.response?.data?.message || "Delete failed");
+    }
+  }
+
+  function logOut() {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    toast.success("Logged out successfully");
+    window.location.reload();
+  }
+
   return (
     <div className="w-full h-full bg-gradient-hero text-white">
       {/* Nav */}
@@ -83,11 +90,22 @@ function HomePage() {
           {"<DevFolio />"}
         </span>
 
-        <Link to="/signin">
+        {
+          user || token ? (
+            <button
+              className="bg-gradient-primary text-[hsl(var(--primary-foreground))] font-display font-semibold shadow-glow animate-pulse-glow py-1 px-2 md:py-2 md:px-4 rounded-sm cursor-pointer text-sm md:text-base"
+              onClick={logOut}
+            >
+             Sign Out
+            </button>
+          ) : (
+            <Link to="/signin">
           <button className="bg-gradient-primary text-[hsl(var(--primary-foreground))] font-display font-semibold shadow-glow animate-pulse-glow py-1 px-2 md:py-2 md:px-4 rounded-sm cursor-pointer text-sm md:text-base">
             Sign In
           </button>
         </Link>
+          )
+        }
       </nav>
 
       {/* Hero */}
@@ -108,7 +126,7 @@ function HomePage() {
             In Minutes
           </h1>
 
-          <p className="mt-6 max-w-xl mx-auto text-[hsl(var(--muted-foreground))] text-lg leading-relaxed">
+          <p className="mt-6 max-w-xl mx-auto text-[hsl(var(--muted-foreground))] md:text-lg leading-relaxed">
             Fill out a simple form, preview your portfolio, and publish it with
             a unique shareable URL. No design skills needed.
           </p>
@@ -121,13 +139,16 @@ function HomePage() {
           className="flex gap-4 mt-4"
         >
           {isPortfolioFound ? (
-            <>
-              <Link to={`/portfolio/${user}`}>
+            <div className="flex gap-4 flex-col md:flex-row justify-center items-center">
+              <div>
+                <Link to={`/portfolio/${user}`}>
                 <button className="bg-gradient-primary text-[hsl(var(--primary-foreground))] font-display font-semibold shadow-glow animate-pulse-glow p-3 rounded-sm cursor-pointer">
                   View Your Portfolio
                 </button>
               </Link>
-              <Link to={`/edit/${user}`}>
+              </div>
+              <div className="flex gap-4 justify-center items-center">
+                <Link to={`/edit/${user}`}>
                 <button className="border border-[hsl(var(--primary))]/50 text-[hsl(var(--primary))] font-display p-3 rounded-sm cursor-pointer">
                   <Pencil className="w-5 h-5" />
                 </button>
@@ -138,9 +159,10 @@ function HomePage() {
               >
                 <Trash2 className="w-5 h-5" />
               </button>
-            </>
+              </div>
+            </div>
           ) : (
-            <>
+            <div className="flex gap-4 flex-col md:flex-row">
               <Link to="/create">
                 <button className="bg-gradient-primary text-[hsl(var(--primary-foreground))] font-display font-semibold shadow-glow animate-pulse-glow p-3 rounded-sm cursor-pointer">
                   Create Your Portfolio
@@ -151,13 +173,13 @@ function HomePage() {
                   View Sample
                 </button>
               </Link>
-            </>
+            </div>
           )}
         </motion.div>
       </section>
 
       {/* Features */}
-      <section className="px-20 md:px-40 pb-10">
+      <section className="px-10 md:px-40 pb-10">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {features.map((f, i) => {
             const Icon = f.icon;
@@ -190,7 +212,7 @@ function HomePage() {
 
       {/* Footer */}
       <footer className="w-full border-t border-[hsl(var(--border))] py-5 text-center">
-        <p className="text-[hsl(var(--muted-foreground))] text-lg ">
+        <p className="text-[hsl(var(--muted-foreground))] md:text-lg">
           {"<DevFolio />"} — Built with MERN Stack
         </p>
       </footer>
