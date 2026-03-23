@@ -1,16 +1,77 @@
-# React + Vite
+# 🎨 DevFolio Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is the frontend of the **Developer Portfolio Generator** built using React.  
+Users can create, preview, edit, and view developer portfolios through a clean UI.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🚀 Tech Stack
 
-## React Compiler
+- React.js
+- React Router DOM
+- Axios
+- Tailwind CSS
+- Framer Motion
+- React Hot Toast
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 📦 Features
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- Multi-step portfolio creation form
+- Preview before publishing
+- Public portfolio page (`/portfolio/:username`)
+- Edit portfolio functionality
+- Responsive UI design
+- API integration with backend
+
+---
+
+## ⚙️ Setup Instructions
+
+### 1. Navigate to frontend folder
+```bash
+cd frontend
+```
+
+### 2. Install dependencies
+```bash
+npm install
+```
+
+### 3. Create .env file
+```bash
+VITE_BACKEND_URL=http://localhost:3000
+```
+
+### 4. Run the app
+```bash
+npm run dev
+```
+---
+
+## 🌐 Routes
+
+ - / -   Home page
+ - /create -	Create portfolio
+ - /preview -	Preview portfolio
+ - /portfolio/:username -	Public portfolio
+ - /edit/:username -	Edit portfolio
+
+---
+
+## 🔗 Backend Connection
+
+### Ensure backend is running at:
+```bash
+http://localhost:3000
+```
+
+---
+
+## 📸 Screenshots
+
+---
+
+ ## 👨‍💻 Author
+ Pamindu Virunjith
