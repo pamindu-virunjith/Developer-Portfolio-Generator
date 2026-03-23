@@ -229,7 +229,7 @@ const PortfolioForm = ({
           <div>
             <label className="block mb-1">LinkedIn</label>
             <input
-              type="email"
+              type="url"
               value={data.contact.linkedin}
               onChange={(e) => updateContact({ linkedin: e.target.value })}
               className="w-full border border-[hsl(var(--muted-foreground))]/50 p-2 rounded placeholder:text-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[hsl(var(--primary))]"
@@ -239,7 +239,7 @@ const PortfolioForm = ({
           <div>
             <label className="block mb-1">Github</label>
             <input
-              type="email"
+              type="url"
               value={data.contact.github}
               onChange={(e) => updateContact({ github: e.target.value })}
               className="w-full border border-[hsl(var(--muted-foreground))]/50 p-2 rounded placeholder:text-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[hsl(var(--primary))]"
@@ -249,7 +249,7 @@ const PortfolioForm = ({
           <div>
             <label className="block mb-1">Website</label>
             <input
-              type="email"
+              type="url"
               value={data.contact.website}
               onChange={(e) => updateContact({ website: e.target.value })}
               className="w-full border border-[hsl(var(--muted-foreground))]/50 p-2 rounded placeholder:text-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[hsl(var(--primary))]"

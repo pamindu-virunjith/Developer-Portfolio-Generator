@@ -14,7 +14,7 @@ export const authMiddleware = (req,res,next)=>{
                 next();
             }else{
                 console.log("Invalid token");
-                res.satus(403).json({message:"Invalid token"});
+                res.status(403).json({message:"Invalid token"});
             }
         })
     }else{

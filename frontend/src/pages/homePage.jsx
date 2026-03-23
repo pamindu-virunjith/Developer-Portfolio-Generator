@@ -5,6 +5,8 @@ import { motion } from "motion/react";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
+import Footer from "../components/footer";
+import NavBar from "../components/navBar";
 
 const features = [
   {
@@ -75,38 +77,10 @@ function HomePage() {
     }
   }
 
-  function logOut() {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    toast.success("Logged out successfully");
-    window.location.reload();
-  }
-
   return (
-    <div className="w-full h-full bg-gradient-hero text-white">
+    <div className="w-full h-full text-white">
       {/* Nav */}
-      <nav className="w-full flex items-center justify-between p-6">
-        <span className="font-display sm:text-3xl text-[hsl(var(--primary))] font-bold tracking-tight">
-          {"<DevFolio />"}
-        </span>
-
-        {
-          user || token ? (
-            <button
-              className="bg-gradient-primary text-[hsl(var(--primary-foreground))] font-display font-semibold shadow-glow animate-pulse-glow py-1 px-2 md:py-2 md:px-4 rounded-sm cursor-pointer text-sm md:text-base"
-              onClick={logOut}
-            >
-             Sign Out
-            </button>
-          ) : (
-            <Link to="/signin">
-          <button className="bg-gradient-primary text-[hsl(var(--primary-foreground))] font-display font-semibold shadow-glow animate-pulse-glow py-1 px-2 md:py-2 md:px-4 rounded-sm cursor-pointer text-sm md:text-base">
-            Sign In
-          </button>
-        </Link>
-          )
-        }
-      </nav>
+      <NavBar />
 
       {/* Hero */}
       <section className="w-full flex flex-col items-center text-center px-5 md:px-0 pt-20 pb-32 gap-6">
@@ -119,14 +93,14 @@ function HomePage() {
             Developer Portfolio Generator
           </p>
 
-          <h1 className="text-4xl md:text-6xl font-bold font-display leading-tight">
+          <h1 className="text-3xl md:text-6xl font-bold font-display leading-tight">
             Build Your{" "}
             <span className="text-gradient-primary">Dev Portfolio</span>
             <br />
             In Minutes
           </h1>
 
-          <p className="mt-6 max-w-xl mx-auto text-[hsl(var(--muted-foreground))] md:text-lg leading-relaxed">
+          <p className="mt-6 max-w-xl mx-auto text-[hsl(var(--muted-foreground))] text-sm md:text-lg leading-relaxed">
             Fill out a simple form, preview your portfolio, and publish it with
             a unique shareable URL. No design skills needed.
           </p>
@@ -193,7 +167,7 @@ function HomePage() {
                   delay: 0.15 * i + 0.4,
                   duration: 0.5,
                 }}
-                className="bg-card border border-border rounded-lg p-6 shadow-card hover:border-primary/30 transition-colors"
+                className="bg-card border border-[hsl(var(--border))] rounded-lg p-6 shadow-card hover:border-primary/30 transition-colors"
               >
                 <Icon className="w-8 h-8 text-[hsl(var(--primary))] mb-4" />
 
@@ -211,11 +185,7 @@ function HomePage() {
       </section>
 
       {/* Footer */}
-      <footer className="w-full border-t border-[hsl(var(--border))] py-5 text-center">
-        <p className="text-[hsl(var(--muted-foreground))] md:text-lg">
-          {"<DevFolio />"} — Built with MERN Stack
-        </p>
-      </footer>
+      <Footer/>
     </div>
   );
 }

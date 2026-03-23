@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import PortfolioForm from "../components/portfolioForm";
 import { ArrowLeft } from "lucide-react";
+import Loading from "../components/loading";
 
 function EditPortfolio() {
   const [data, setData] = useState(null);
@@ -13,6 +14,11 @@ function EditPortfolio() {
   const token = localStorage.getItem("token");
 
   useEffect(() => {
+    if (!token || !username) {
+      toast.error("Please login first");
+      navigate("/signin");
+      return;
+    }
     axios
       .get(`${import.meta.env.VITE_BACKEND_URL}/api/portfolio/${username}`, {
         headers: { Authorization: `Bearer ${token}` },
@@ -24,17 +30,9 @@ function EditPortfolio() {
         console.error(err);
         toast.error("Failed to load portfolio");
       });
-  }, [token, username]);
+  }, [token, username, navigate]);
 
-  if (!data)
-    return (
-      <div className="w-full h-screen flex items-center justify-center">
-        <div className="w-full h-screen flex justify-center items-center">
-          <div className="w-20 h-20 border-6 border-[hsl(var(--primary))] border-t-black rounded-full animate-spin"></div>
-        </div>
-        ;
-      </div>
-    );
+  if (!data) return <Loading />;
 
   return (
     <div className="w-full h-full">
@@ -50,10 +48,10 @@ function EditPortfolio() {
         </span>
       </nav>
       <div className="py-8 px-5 md:px-0 md:pl-8">
-        <h1 className="font-display text-2xl font-bold text-[hsl(var(--foreground))] mb-2">
+        <h1 className="font-display md:text-2xl font-bold text-[hsl(var(--foreground))] mb-2">
           Update Your own Portfolio
         </h1>
-        <p className="text-[hsl(var(--muted-foreground))] mb-10">
+        <p className="text-[hsl(var(--muted-foreground))] text-sm md:text-base mb-10">
           Fill in your details across the sections below.
         </p>
         <PortfolioForm

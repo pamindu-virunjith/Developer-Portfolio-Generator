@@ -4,7 +4,6 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import portfoilioRouter from './routers/portfolioRouter.js';
-import { authMiddleware } from './middleware/authMiddleware.js';
 import userRouter from './routers/userRouter.js';
 dotenv.config()
 
@@ -12,7 +11,6 @@ const app = express()
 
 app.use(cors())
 app.use(bodyParser.json())
-app.use(authMiddleware)
 
 mongoose
   .connect(process.env.MOGODB_URL)
