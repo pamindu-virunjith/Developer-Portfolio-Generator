@@ -33,8 +33,8 @@ Users can:
 
 ### 1. Clone repo
 ```bash
-git clone https://github.com/your-username/devfolio.git
-cd devfolio
+git clone https://github.com/pamindu-virunjith/Developer-Portfolio-Generator.git
+cd Developer-Portfolio-Generator
 ```
 
 ### 2. Setup Backend
